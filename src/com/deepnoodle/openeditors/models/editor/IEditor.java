@@ -1,46 +1,48 @@
+
 package com.deepnoodle.openeditors.models.editor;
 
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.ui.IEditorReference;
 
-public interface IEditor {
+public interface IEditor
+{
 
-	String getFilePath();
+    String getFilePath();
 
-	void setFilePath(String path);
+    void setFilePath(String path);
 
-	String getName();
+    String getName();
 
-	void setName(String name);
+    String getDisplayName();
 
-	boolean isPinned();
+    boolean isPinned();
 
-	void setPinned(boolean pinned);
+    void setPinned(boolean pinned);
 
-	Integer getNaturalPosition();
+    Integer getNaturalPosition();
 
-	void setNaturalPosition(Integer naturalPosition);
+    void setNaturalPosition(Integer naturalPosition);
 
-	boolean isOpened();
+    boolean isOpened();
 
-	void setOpened(boolean opened);
+    void setOpened(boolean opened);
 
-	Integer getHistoryPosition();
+    Integer getHistoryPosition();
 
-	void setHistoryPosition(Integer historyPosition);
+    void setHistoryPosition(Integer historyPosition);
 
-	boolean isDirty();
+    boolean isDirty();
 
-	IEditorReference getReference();
+    IEditorReference getReference();
 
-	void setReference(IEditorReference reference);
+    void setReference(IEditorReference reference);
 
-	String getTitleImagePath();
+    String getTitleImagePath();
 
-	void setTitleImagePath(String titleImage);
+    void setTitleImagePath(String titleImage);
 
-	Image getTitleImage();
+    Image getTitleImage();
 
-	void setTitleImage(Image titleImage);
+    void setTitleImage(Image titleImage);
 
 }

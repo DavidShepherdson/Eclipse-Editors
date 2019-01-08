@@ -1,3 +1,4 @@
+
 package com.deepnoodle.openeditors.actions;
 
 import java.util.List;
@@ -11,35 +12,50 @@ import com.deepnoodle.openeditors.services.EditorService;
 import com.deepnoodle.openeditors.services.SettingsService;
 import com.deepnoodle.openeditors.views.openeditors.EditorTableView;
 
-public class CloseItemMenuAction extends Action {
-	private static LogWrapper log = new LogWrapper(CloseItemMenuAction.class);
+public class CloseItemMenuAction extends Action
+{
+    private static LogWrapper log = new LogWrapper(CloseItemMenuAction.class);
 
-	EditorService editorService = EditorService.getInstance();
-	SettingsService settingsService = SettingsService.getInstance();
-	private EditorTableView editorTableView;
+    EditorService editorService = EditorService.getInstance();
+    SettingsService settingsService = SettingsService.getInstance();
+    private EditorTableView editorTableView;
 
-	private IWorkbenchPartSite site;
+    private IWorkbenchPartSite site;
 
-	public CloseItemMenuAction(EditorTableView editorTableView, IWorkbenchPartSite site) {
-		this.editorTableView = editorTableView;
-		setText("Close");
-	}
+    public CloseItemMenuAction(EditorTableView editorTableView, IWorkbenchPartSite site)
+    {
+        this.editorTableView = editorTableView;
+        this.site = site;
+        setText("Close");
+    }
 
-	@Override
-	public void run() {
-		List<IEditor> editors = editorTableView.getSelections();
-		for (IEditor editor : editors) {
-			try {
-				if (editor.isOpened()) {
-					editorService.closeEditor(editor, site);
-				}
-				settingsService.getActiveEditorSettingsSet().getEditorModels().remove(editor.getFilePath());
-			} catch (Exception e) {
-				log.warn(e, "Could not close editor: %s", editor.getFilePath());
-			}
-		}
+    @Override
+    public void run()
+    {
+        List<IEditor> editors = editorTableView.getSelections();
+        for (IEditor editor : editors)
+        {
+            try
+            {
+                if (editor.isOpened())
+                {
+                    editorService.closeEditor(editor, site);
+                }
+                else
+                {
+                    // System.err.println("Editor is not opened; not closing!");
+                }
+                settingsService.getActiveEditorSettingsSet().getEditorModels()
+                        .remove(editor.getFilePath());
+            }
+            catch (Exception e)
+            {
+                // e.printStackTrace();
+                log.warn(e, "Could not close editor: %s", editor.getFilePath());
+            }
+        }
 
-		settingsService.saveSettings();
-		editorTableView.refresh();
-	}
+        settingsService.saveSettings();
+        editorTableView.refresh();
+    }
 }
