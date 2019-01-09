@@ -147,9 +147,6 @@ public class EditorService
 
         // Loop through open editors, add them to the set if need be.
         IEditorReference[] references = activePage.getEditorReferences();
-//        System.err.println(
-//                "buildOpenEditors: found " + references.length + " editor references ("
-//                        + editorSettingsModels.size() + " in models)");
         for (int i = 0; i < references.length; i++)
         {
 
@@ -165,7 +162,6 @@ public class EditorService
                 editorModels.put(filePath, editorModel);
 
                 reference.addPropertyListener(listener);
-//                System.err.println("buildOpenEditors: added entry for '" + filePath + "'");
             }
 
             // Copy over any data that might not be in the editor
@@ -204,7 +200,6 @@ public class EditorService
 
         for (String editorToClose : editorsToClose)
         {
-//                System.err.println("buildOpenEditors: Removing entry for '" + editorToClose + "'");
             editorModels.remove(editorToClose);
         }
 

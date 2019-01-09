@@ -21,15 +21,7 @@ public class PartListener implements IPartListener2, IResourceChangeListener
     {
         if (partReference instanceof IEditorReference)
         {
-//            System.err.println(
-//                    "Activated: " + partReference + " (" + partReference.getPartName() + ")");
             editorTableView.updateActivePart();
-        }
-        else
-        {
-//            System.err.println(
-//                    "NON-EDITOR activated: " + partReference + " ("
-//                            + (partReference == null ? null : partReference.getPartName()) + ")");
         }
     }
 
@@ -45,10 +37,7 @@ public class PartListener implements IPartListener2, IResourceChangeListener
     @Override
     public void partOpened(IWorkbenchPartReference partReference)
     {
-        if (partReference instanceof IEditorReference)
-        {
-            // System.err.println("Opened: " + partReference);
-        }
+        // We don't care.
     }
 
     @Override

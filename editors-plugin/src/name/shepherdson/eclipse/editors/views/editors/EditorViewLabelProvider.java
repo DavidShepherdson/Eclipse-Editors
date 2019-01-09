@@ -34,7 +34,6 @@ class EditorViewLabelProvider extends LabelProvider implements ITableLabelProvid
             image = editor.getTitleImage();
             if (image == null)
             {
-                // System.err.println("Couldn't get title image for editor " + editor);
                 // Load the image for the file
                 image = PlatformUI.getWorkbench().getEditorRegistry()
                         .getImageDescriptor(editor.getFilePath()).createImage();
@@ -44,7 +43,6 @@ class EditorViewLabelProvider extends LabelProvider implements ITableLabelProvid
         // Default to file image if none found
         if (image == null)
         {
-            // System.err.println("Still couldn't get title image for object " + obj);
             image = PlatformUI.getWorkbench().getSharedImages()
                     .getImage(ISharedImages.IMG_OBJ_FILE);
         }

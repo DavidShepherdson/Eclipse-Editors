@@ -41,16 +41,11 @@ public class CloseItemMenuAction extends Action
                 {
                     editorService.closeEditor(editor, site);
                 }
-                else
-                {
-                    // System.err.println("Editor is not opened; not closing!");
-                }
                 settingsService.getActiveEditorSettingsSet().getEditorModels()
                         .remove(editor.getFilePath());
             }
             catch (Exception e)
             {
-                // e.printStackTrace();
                 log.warn(e, "Could not close editor: %s", editor.getFilePath());
             }
         }

@@ -19,7 +19,6 @@ public class EditorChangeListener implements IPropertyListener
     public void propertyChanged(Object source, int property)
     {
         // TODO Do we need to filter for the event source?
-        // System.err.println("Change: property " + property + ", source " + source);
         if (property == IEditorPart.PROP_DIRTY)
         {
             editorTableView.refresh();
