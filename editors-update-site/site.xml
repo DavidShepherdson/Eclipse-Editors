@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description name="Eclipse Editors">
+      
+   </description>
+   <feature url="features/name.shepherdson.eclipse.editors.feature_0.91.1.jar" id="name.shepherdson.eclipse.editors.feature" version="0.91.1"/>
+</site>
