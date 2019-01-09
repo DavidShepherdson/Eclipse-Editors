@@ -34,13 +34,6 @@ public class EditorsViewPart extends ViewPart
         PartListener listener = new PartListener(editorTableView);
         workbenchWindow.getPartService().addPartListener(listener);
 
-        // ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
-
-        // EditorSetComboControl editorSetComboControl = new EditorSetComboControl(editorTableView);
-
-//		Action loadSetAction = new ManageSetsAction(editorSetComboControl);
-//		Action saveSetAction = new SaveSetAction(editorSetComboControl);
-//
 //		Action sortByAccessAction = new SortAction(editorTableView,
 //				EditorComparator.SortType.ACCESS,
 //				"Sort by Last Access",
@@ -69,14 +62,6 @@ public class EditorsViewPart extends ViewPart
 
         // TODO fix and add back in
         // menuManager.add(sortByAccessAction);
-
-        // TODO fix and add back in
-        // IToolBarManager toolbarManager = bars.getToolBarManager();
-        //
-        // toolbarManager.add(editorSetComboControl);
-        // toolbarManager.add(loadSetAction);
-        // toolbarManager.add(saveSetAction);
-
     }
 
     @Override

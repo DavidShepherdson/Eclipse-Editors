@@ -13,9 +13,6 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.ui.IWorkbenchPartSite;
 
 import name.shepherdson.eclipse.editors.actions.CloseItemMenuAction;
-import name.shepherdson.eclipse.editors.actions.OpenItemMenuAction;
-import name.shepherdson.eclipse.editors.actions.PinMenuAction;
-import name.shepherdson.eclipse.editors.actions.UnPinMenuAction;
 import name.shepherdson.eclipse.editors.models.editor.IEditor;
 
 public class EditorItemMenuManager implements IMenuListener
@@ -24,17 +21,10 @@ public class EditorItemMenuManager implements IMenuListener
 
     private EditorTableView editorTableView;
 
-    private ActionContributionItem pinMenuItem;
-
-    private ActionContributionItem unPinMenuItem;
-
-    private ActionContributionItem openMenuItem;
-
     private ActionContributionItem closeMenuItem;
 
     private MenuManager menuManager;
 
-    // TODO if performance issues, find a better way then rebuilding the menu everytime
     public EditorItemMenuManager(final EditorTableView editorTableView,
             final IWorkbenchPartSite site, Composite parent)
     {
@@ -52,15 +42,6 @@ public class EditorItemMenuManager implements IMenuListener
         menuManager.addMenuListener(this);
         menuManager.setRemoveAllWhenShown(true);
 
-        pinMenuItem = new ActionContributionItem(new PinMenuAction(editorTableView));
-        menuManager.add(pinMenuItem);
-
-        unPinMenuItem = new ActionContributionItem(new UnPinMenuAction(editorTableView));
-        menuManager.add(unPinMenuItem);
-
-        openMenuItem = new ActionContributionItem(new OpenItemMenuAction(editorTableView, site));
-        menuManager.add(openMenuItem);
-
         closeMenuItem = new ActionContributionItem(new CloseItemMenuAction(editorTableView, site));
         menuManager.add(closeMenuItem);
 
@@ -71,42 +52,11 @@ public class EditorItemMenuManager implements IMenuListener
     {
 
         List<IEditor> selections = editorTableView.getSelections();
-        // TODO should I just add the ones I want or set visibility and add all?
 
-        pinMenuItem.setVisible(canPin(selections));
-        unPinMenuItem.setVisible(canUnPin(selections));
-        openMenuItem.setVisible(canOpen(selections));
         closeMenuItem.setVisible(canClose(selections));
 
-        // menuManager.add(pinMenuItem);
-        // menuManager.add(unPinMenuItem);
-        // menuManager.add(openMenuItem);
         menuManager.add(closeMenuItem);
 
-    }
-
-    private boolean canPin(List<IEditor> editors)
-    {
-        for (IEditor editor : editors)
-        {
-            if (!editor.isPinned())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean canUnPin(List<IEditor> editors)
-    {
-        for (IEditor editor : editors)
-        {
-            if (editor.isPinned())
-            {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean canClose(List<IEditor> editors)
@@ -114,18 +64,6 @@ public class EditorItemMenuManager implements IMenuListener
         for (IEditor editor : editors)
         {
             if (editor.isOpened())
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean canOpen(List<IEditor> editors)
-    {
-        for (IEditor editor : editors)
-        {
-            if (!editor.isOpened())
             {
                 return true;
             }

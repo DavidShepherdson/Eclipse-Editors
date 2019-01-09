@@ -55,7 +55,6 @@ public class CloseItemMenuAction extends Action
             }
         }
 
-        settingsService.saveSettings();
         editorTableView.refresh();
     }
 }

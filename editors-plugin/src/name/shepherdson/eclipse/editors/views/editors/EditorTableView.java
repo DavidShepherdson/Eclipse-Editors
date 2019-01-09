@@ -18,7 +18,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IViewSite;
-import org.eclipse.ui.IWorkbenchPartReference;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
@@ -38,8 +37,6 @@ public class EditorTableView implements ISelectionChangedListener
     private static final int MAX_RETRY_DELAY = 4000; // In milliseconds.
 
     private SettingsService settingsService = SettingsService.getInstance();
-
-//    private EditorRowFormatter editorRowFormatter = EditorRowFormatter.getInstance();
 
     private EditorService editorService = EditorService.getInstance();
 
@@ -85,13 +82,6 @@ public class EditorTableView implements ISelectionChangedListener
             {
                 editorViewContentProvider.reset();
                 tableViewer.refresh();
-//                TableItem[] items = tableViewer.getTable().getItems();
-                // tableViewer.setSelection(StructuredSelection.EMPTY);
-//                editorRowFormatter.formatRows(
-//                        items,
-//                        activeEditor,
-//                        tableViewer.getTable().getForeground(),
-//                        tableViewer.getTable().getBackground());
             }
         }
         catch (Exception e)
@@ -196,7 +186,15 @@ public class EditorTableView implements ISelectionChangedListener
                 {
 //                    System.err.println(
 //                            "selectionChanged: Nothing selected; retriggering activeEditor");
-                    setActivePart(activeEditorReference);
+                    try
+                    {
+                        setActiveInput(activeEditorReference.getEditorInput());
+                    }
+                    catch (PartInitException e)
+                    {
+                        log.warn(e);
+                        updateActivePart();
+                    }
                 }
             }
             else
@@ -257,17 +255,11 @@ public class EditorTableView implements ISelectionChangedListener
         return tableViewer.getTable();
     }
 
-    public void setActivePart(IWorkbenchPartReference partReference)
+    public void updateActivePart()
     {
         IEditorPart pageActiveEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow()
                 .getActivePage().getActiveEditor();
         setActiveInput(pageActiveEditor == null ? null : pageActiveEditor.getEditorInput());
-
-//        setActiveEditor(
-//                partReference,
-//                partReference == null ? null : partReference.getPartName(),
-//                IEditor::getReference,
-//                500);
     }
 
     public void setActiveInput(IEditorInput editorInput)

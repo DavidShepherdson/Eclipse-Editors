@@ -6,11 +6,9 @@ import org.eclipse.ui.IEditorReference;
 
 import name.shepherdson.eclipse.editors.models.editor.IEditor;
 
-//TODO change name, it's not just settings
-public class EditorSettingsModel implements IEditor
+public class EditorModel implements IEditor
 {
     private String filePath;
-    private boolean pinned;
     private Integer naturalPosition;
     private boolean opened = false;
     private String titleImagePath;
@@ -40,7 +38,7 @@ public class EditorSettingsModel implements IEditor
         this.dirty = dirty;
     }
 
-    public EditorSettingsModel(String filePath)
+    public EditorModel(String filePath)
     {
         this.filePath = filePath;
     }
@@ -68,18 +66,6 @@ public class EditorSettingsModel implements IEditor
     {
         return (isDirty() ? "*" : "")
                 + (reference == null ? cachedPartName : reference.getPartName());
-    }
-
-    @Override
-    public boolean isPinned()
-    {
-        return pinned;
-    }
-
-    @Override
-    public void setPinned(boolean pinned)
-    {
-        this.pinned = pinned;
     }
 
     @Override

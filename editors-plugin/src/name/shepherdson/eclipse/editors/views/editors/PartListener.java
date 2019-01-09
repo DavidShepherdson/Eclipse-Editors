@@ -23,8 +23,7 @@ public class PartListener implements IPartListener2, IResourceChangeListener
         {
 //            System.err.println(
 //                    "Activated: " + partReference + " (" + partReference.getPartName() + ")");
-            editorTableView.setActivePart(partReference);
-            // editorTableView.refresh();
+            editorTableView.updateActivePart();
         }
         else
         {
@@ -49,23 +48,19 @@ public class PartListener implements IPartListener2, IResourceChangeListener
         if (partReference instanceof IEditorReference)
         {
             // System.err.println("Opened: " + partReference);
-            // editorTableView.refresh();
         }
     }
 
     @Override
     public void partBroughtToTop(IWorkbenchPartReference partReference)
     {
-        if (partReference instanceof IEditorReference)
-        {
-            // editorTableView.refresh();
-        }
+        // We don't care.
     }
 
     @Override
     public void resourceChanged(IResourceChangeEvent event)
     {
-        // editorTableView.refresh();
+        // We don't care.
     }
 
     @Override

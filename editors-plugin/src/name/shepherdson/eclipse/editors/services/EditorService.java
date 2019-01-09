@@ -20,14 +20,12 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.FileEditorInput;
 
-import name.shepherdson.eclipse.editors.Constants;
 import name.shepherdson.eclipse.editors.logging.LogWrapper;
 import name.shepherdson.eclipse.editors.models.editor.IEditor;
+import name.shepherdson.eclipse.editors.models.settings.EditorModel;
 import name.shepherdson.eclipse.editors.models.settings.EditorSetSettingsModel;
-import name.shepherdson.eclipse.editors.models.settings.EditorSettingsModel;
 import name.shepherdson.eclipse.editors.views.editors.EditorChangeListener;
 
-//rename
 public class EditorService
 {
     private static LogWrapper log = new LogWrapper(EditorService.class);
@@ -127,25 +125,21 @@ public class EditorService
     // TODO break into it's own class
     public IEditor[] buildOpenEditors(EditorChangeListener listener)
     {
-        // TODO set to false and test below, for now just save every time
-
-        boolean isDirty = false;
         IWorkbenchPage activePage =
                 PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 
         EditorSetSettingsModel editorSetSettingsModel =
                 settingsService.getActiveEditorSettingsSet();
 
-        Map<String, EditorSettingsModel> editorSettingsModels =
-                editorSetSettingsModel.getEditorModels();
+        Map<String, EditorModel> editorModels = editorSetSettingsModel.getEditorModels();
 
         // Mark all as unopened, and clean transient values
-        for (EditorSettingsModel editorSettingsModel : editorSettingsModels.values())
+        for (EditorModel editorModel : editorModels.values())
         {
-            editorSettingsModel.setOpened(false);
-            editorSettingsModel.setReference(null);
-            editorSettingsModel.setTitleImage(null);
-            editorSettingsModel.setDirty(false);
+            editorModel.setOpened(false);
+            editorModel.setReference(null);
+            editorModel.setTitleImage(null);
+            editorModel.setDirty(false);
         }
 
         // get the navigation history
@@ -161,26 +155,25 @@ public class EditorService
 
             IEditorReference reference = references[i];
             String filePath = getFilePath(reference);
-            EditorSettingsModel editor = editorSettingsModels.get(filePath);
-            if (editor == null)
+            EditorModel editorModel = editorModels.get(filePath);
+            if (editorModel == null)
             {
                 Integer naturalPosition = i;
-                editor = new EditorSettingsModel(filePath);
-                editor.setNaturalPosition(naturalPosition);
+                editorModel = new EditorModel(filePath);
+                editorModel.setNaturalPosition(naturalPosition);
 
-                editorSettingsModels.put(filePath, editor);
-                isDirty = true;
+                editorModels.put(filePath, editorModel);
 
                 reference.addPropertyListener(listener);
 //                System.err.println("buildOpenEditors: added entry for '" + filePath + "'");
             }
 
             // Copy over any data that might not be in the editor
-            editor.setOpened(true);
-            editor.setReference(reference);
-            editor.setTitleImage(reference.getTitleImage());
-            editor.setTitleImagePath(reference.getTitleImage().getImageData().toString());
-            editor.setDirty(reference.isDirty());
+            editorModel.setOpened(true);
+            editorModel.setReference(reference);
+            editorModel.setTitleImage(reference.getTitleImage());
+            editorModel.setTitleImagePath(reference.getTitleImage().getImageData().toString());
+            editorModel.setDirty(reference.isDirty());
 
             // This could be optimized if need be
             // for (int h = 0; h < locations.length; h++) {
@@ -200,31 +193,22 @@ public class EditorService
         }
 
         // remove any non open editors if need be
-        if (!settingsService.keepOpenEditorsHistory()
-                && settingsService.getActiveSetName().equals(Constants.OPEN_EDITORS_SET_NAME))
+        List<String> editorsToClose = new LinkedList<>();
+        for (EditorModel editorModel : editorModels.values())
         {
-
-            List<String> editorsToClose = new LinkedList<>();
-            for (EditorSettingsModel editor : editorSettingsModels.values())
+            if (!editorModel.isOpened())
             {
-                if (!editor.isOpened())
-                {
-                    editorsToClose.add(editor.getFilePath());
-                }
+                editorsToClose.add(editorModel.getFilePath());
             }
+        }
 
-            for (String editorToClose : editorsToClose)
-            {
+        for (String editorToClose : editorsToClose)
+        {
 //                System.err.println("buildOpenEditors: Removing entry for '" + editorToClose + "'");
-                editorSettingsModels.remove(editorToClose);
-            }
+            editorModels.remove(editorToClose);
         }
 
-        if (isDirty)
-        {
-            settingsService.saveSettings();
-        }
-        return editorSettingsModels.values().toArray(new IEditor[editorSettingsModels.size()]);
+        return editorModels.values().toArray(new IEditor[editorModels.size()]);
     }
 
 }

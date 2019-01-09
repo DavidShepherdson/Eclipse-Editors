@@ -27,32 +27,21 @@ public class EditorComparator extends ViewerComparator
         IEditor editor1 = (IEditor) e1;
         IEditor editor2 = (IEditor) e2;
 
-        int compare = Boolean.compare(editor2.isPinned(), editor1.isPinned());
-        if (compare == 0)
+        switch (sortBy)
         {
-            switch (sortBy)
-            {
-                case ACCESS:
-                    compare = compare(editor2.getHistoryPosition(), editor1.getHistoryPosition());
-                    break;
-                case NATURAL:
-                    compare = compare(editor1.getNaturalPosition(), editor2.getNaturalPosition());
-                    break;
-                case NAME:
-                    compare = compare(
-                            editor1.getName().toLowerCase(),
-                            editor2.getName().toLowerCase());
-                    break;
-                case PATH:
-                    compare = compare(
-                            editor1.getFilePath().toLowerCase(),
-                            editor2.getFilePath().toLowerCase());
-                    break;
-                default:
-                    break;
-            }
+            case ACCESS:
+                return compare(editor2.getHistoryPosition(), editor1.getHistoryPosition());
+            case NATURAL:
+                return compare(editor1.getNaturalPosition(), editor2.getNaturalPosition());
+            case NAME:
+                return compare(editor1.getName().toLowerCase(), editor2.getName().toLowerCase());
+            case PATH:
+                return compare(
+                        editor1.getFilePath().toLowerCase(),
+                        editor2.getFilePath().toLowerCase());
+            default:
+                return 0;
         }
-        return compare;
     }
 
     @SuppressWarnings(

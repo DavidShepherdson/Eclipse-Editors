@@ -12,7 +12,7 @@ public class EditorSetSettingsModel
     private String name;
     private SortType sortBy = EditorComparator.SortType.ACCESS;
 
-    private Map<String, EditorSettingsModel> editorModels = new TreeMap<>();
+    private Map<String, EditorModel> editorModels = new TreeMap<>();
 
     public String getName()
     {
@@ -34,12 +34,12 @@ public class EditorSetSettingsModel
         this.sortBy = sortBy;
     }
 
-    public Map<String, EditorSettingsModel> getEditorModels()
+    public Map<String, EditorModel> getEditorModels()
     {
         return editorModels;
     }
 
-    public void setEditorModels(Map<String, EditorSettingsModel> editorModels)
+    public void setEditorModels(Map<String, EditorModel> editorModels)
     {
         this.editorModels = editorModels;
     }

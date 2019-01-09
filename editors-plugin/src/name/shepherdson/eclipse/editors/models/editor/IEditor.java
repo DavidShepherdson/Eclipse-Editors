@@ -15,10 +15,6 @@ public interface IEditor
 
     String getDisplayName();
 
-    boolean isPinned();
-
-    void setPinned(boolean pinned);
-
     Integer getNaturalPosition();
 
     void setNaturalPosition(Integer naturalPosition);

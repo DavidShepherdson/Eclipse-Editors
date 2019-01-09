@@ -61,27 +61,6 @@ public class SettingsDao
         return new SettingsModel();
     }
 
-    public void saveSettings(SettingsModel settingsModel)
-    {
-        // TODO add back in once sets are activated
-        // try {
-        // DialogSettings settings = new DialogSettings(SETS_ROOT);
-        // DialogSettings.getOrCreateSection(settings, "SettingsEntity");
-        // IDialogSettings settingsModelJsonSection = DialogSettings.getOrCreateSection(settings,
-        // "SettingsEntity");
-        //
-        // String json = new GsonBuilder().create().toJson(settingsModel);
-        // settingsModelJsonSection.put("json", json);
-        //
-        // IPath path = Activator.getDefault().getStateLocation();
-        // String settingsFileName = getSettingsPath(path);
-        // settings.save(settingsFileName);
-        // } catch (IOException e) {
-        // log.warn(e);
-        // }
-
-    }
-
     public String getSettingsPath(IPath path)
     {
         String settingsFileName = path.append(SETS_FILE_NAME).toOSString();
