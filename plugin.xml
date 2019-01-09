@@ -5,16 +5,14 @@
 
     <extension
          point="org.eclipse.ui.views">
-      <category
-            name="deepnoodle"
-            id="deepnoodle">
-      </category>
       <view
-            name="Open Editors"
-            icon="icons/deepnoodle.ico"
-            category="deepnoodle"
-            class="com.deepnoodle.openeditors.views.openeditors.OpenEditorsMainView"
-            id="EditorsView">
+            allowMultiple="false"
+            category="org.eclipse.ui"
+            class="name.shepherdson.eclipse.editors.views.editors.EditorsViewPart"
+            icon="icons/editors.png"
+            id="EditorsView"
+            name="Editors"
+            restorable="true">
       </view>
    </extension> 
 

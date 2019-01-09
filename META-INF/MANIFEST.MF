@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Open Editors
-Bundle-SymbolicName: com.deepnoodle.openeditors;singleton:=true
-Bundle-Version: 0.91
-Bundle-Vendor: deepnoodle
-Automatic-Module-Name: OpenEditors
+Bundle-Name: Eclipse Editors
+Bundle-SymbolicName: name.shepherdson.eclipse.editors;singleton:=true
+Bundle-Version: 0.91.1
+Bundle-Vendor: David Shepherdson
+Automatic-Module-Name: EclipseEditors
 Require-Bundle: org.eclipse.core.resources;bundle-version="3.11.0",
  org.eclipse.core.runtime;bundle-version="3.12.0",
  org.eclipse.jface
@@ -15,6 +15,6 @@ Import-Package: javax.annotation;version="1.2.0",
  org.eclipse.ui.plugin
 Bundle-ClassPath: .,
  lib/gson-2.3.1.jar
-Bundle-Activator: com.deepnoodle.openeditors.Activator
+Bundle-Activator: name.shepherdson.eclipse.editors.Activator
 Bundle-ActivationPolicy: lazy
 
