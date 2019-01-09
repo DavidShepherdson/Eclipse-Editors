@@ -21,16 +21,16 @@ public class PartListener implements IPartListener2, IResourceChangeListener
     {
         if (partReference instanceof IEditorReference)
         {
-            System.err.println(
-                    "Activated: " + partReference + " (" + partReference.getPartName() + ")");
+//            System.err.println(
+//                    "Activated: " + partReference + " (" + partReference.getPartName() + ")");
             editorTableView.setActivePart(partReference);
             // editorTableView.refresh();
         }
         else
         {
-            System.err.println(
-                    "NON-EDITOR activated: " + partReference + " ("
-                            + (partReference == null ? null : partReference.getPartName()) + ")");
+//            System.err.println(
+//                    "NON-EDITOR activated: " + partReference + " ("
+//                            + (partReference == null ? null : partReference.getPartName()) + ")");
         }
     }
 

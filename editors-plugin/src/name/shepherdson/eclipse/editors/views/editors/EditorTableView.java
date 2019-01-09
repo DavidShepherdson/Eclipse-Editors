@@ -182,42 +182,42 @@ public class EditorTableView implements ISelectionChangedListener
                     activeEditor = null; // Clear the field so 'reselecting' it looks like a change.
                     if (pageActiveEditor == null)
                     {
-                        System.err.println(
-                                "selectionChanged: Nothing selected; clearing activeEditor");
+//                        System.err.println(
+//                                "selectionChanged: Nothing selected; clearing activeEditor");
                     }
                     else
                     {
-                        System.err.println(
-                                "selectionChanged: Nothing selected; retriggering activeEditor from page");
+//                        System.err.println(
+//                                "selectionChanged: Nothing selected; retriggering activeEditor from page");
                         setActiveInput(pageActiveEditor.getEditorInput());
                     }
                 }
                 else
                 {
-                    System.err.println(
-                            "selectionChanged: Nothing selected; retriggering activeEditor");
+//                    System.err.println(
+//                            "selectionChanged: Nothing selected; retriggering activeEditor");
                     setActivePart(activeEditorReference);
                 }
             }
             else
             {
-                System.err.println(
-                        "selectionChanged: Nothing selected; activeEditor is already null");
+//                System.err.println(
+//                        "selectionChanged: Nothing selected; activeEditor is already null");
             }
             return;
         }
         if (editors.size() != 1)
         {
             // Only switch editors when exactly one has been selected.
-            System.err.println("selectionChanged: " + editors.size() + " selected; skipping.");
+//            System.err.println("selectionChanged: " + editors.size() + " selected; skipping.");
             return;
         }
         IEditor editor = editors.iterator().next();
         if (editor != activeEditor)
         {
-            System.err.println(
-                    "selectionChanged: need to update activeEditor (from " + activeEditor + " to "
-                            + editor + ")");
+//            System.err.println(
+//                    "selectionChanged: need to update activeEditor (from " + activeEditor + " to "
+//                            + editor + ")");
             // We've actually changed active editors, according to what we have cached.
             try
             {
@@ -230,9 +230,9 @@ public class EditorTableView implements ISelectionChangedListener
         }
         else
         {
-            System.err.println(
-                    "selectionChanged: already the same as activeEditor (" + activeEditor
-                            + "); skipping.");
+//            System.err.println(
+//                    "selectionChanged: already the same as activeEditor (" + activeEditor
+//                            + "); skipping.");
         }
     }
 
@@ -299,9 +299,9 @@ public class EditorTableView implements ISelectionChangedListener
         IEditor newActiveEditor = findMatchingEditor(activeIdentifier, identifierAccessor);
         if (newActiveEditor == null)
         {
-            System.err.println(
-                    "setActivePart: Couldn't find editor for " + activeIdentifier + " ("
-                            + identifierDescriptor + "). Refreshing and trying again.");
+//            System.err.println(
+//                    "setActivePart: Couldn't find editor for " + activeIdentifier + " ("
+//                            + identifierDescriptor + "). Refreshing and trying again.");
             refresh();
             newActiveEditor = findMatchingEditor(activeIdentifier, identifierAccessor);
         }
@@ -309,15 +309,15 @@ public class EditorTableView implements ISelectionChangedListener
         {
             if (newActiveEditor == null)
             {
-                System.err.println(
-                        "setActivePart: Couldn't find editor for " + activeIdentifier + " ("
-                                + identifierDescriptor + ")");
+//                System.err.println(
+//                        "setActivePart: Couldn't find editor for " + activeIdentifier + " ("
+//                                + identifierDescriptor + ")");
                 if (howSoonToTryAgainInMilliseconds > 0
                         && howSoonToTryAgainInMilliseconds <= MAX_RETRY_DELAY)
                 {
-                    System.err.println(
-                            "setActivePart: Will try again shortly ("
-                                    + howSoonToTryAgainInMilliseconds + " ms)...");
+//                    System.err.println(
+//                            "setActivePart: Will try again shortly ("
+//                                    + howSoonToTryAgainInMilliseconds + " ms)...");
                     runSoonOnUIThread(new Runnable()
                     {
                         @Override
@@ -333,9 +333,9 @@ public class EditorTableView implements ISelectionChangedListener
                     return;
                 }
             }
-            System.err.println(
-                    "setActivePart: Editor changed (from " + activeEditor + " to " + newActiveEditor
-                            + ")");
+//            System.err.println(
+//                    "setActivePart: Editor changed (from " + activeEditor + " to " + newActiveEditor
+//                            + ")");
             activeEditor = newActiveEditor;
             tableViewer.setSelection(
                     activeEditor == null ? new StructuredSelection()
@@ -344,7 +344,7 @@ public class EditorTableView implements ISelectionChangedListener
         }
         else
         {
-            System.err.println("setActivePart: Editor already the same; not changing anything.");
+//            System.err.println("setActivePart: Editor already the same; not changing anything.");
         }
     }
 
@@ -365,7 +365,7 @@ public class EditorTableView implements ISelectionChangedListener
                 }
                 else
                 {
-                    System.err.println("setActivePart: Found matching editor, but it isn't open!");
+//                    System.err.println("setActivePart: Found matching editor, but it isn't open!");
                 }
             }
         }
