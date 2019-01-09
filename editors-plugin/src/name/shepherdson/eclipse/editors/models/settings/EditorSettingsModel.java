@@ -136,8 +136,8 @@ public class EditorSettingsModel implements IEditor
         this.reference = reference;
         if (reference != null)
         {
-            this.cachedName = reference.getName();
-            this.cachedPartName = reference.getPartName();
+            cachedName = reference.getName();
+            cachedPartName = reference.getPartName();
         }
     }
 

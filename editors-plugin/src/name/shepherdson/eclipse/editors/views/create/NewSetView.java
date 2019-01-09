@@ -1,3 +1,4 @@
+
 package name.shepherdson.eclipse.editors.views.create;
 
 import java.util.Map;
@@ -22,140 +23,167 @@ import name.shepherdson.eclipse.editors.models.settings.EditorSetSettingsModel;
 import name.shepherdson.eclipse.editors.services.SettingsService;
 
 //TODO clean this up
-public class NewSetView extends TitleAreaDialog {
-	private static final int DELETE = 3;
+public class NewSetView extends TitleAreaDialog
+{
+    private static final int DELETE = 3;
 
-	private SettingsService settingsService = SettingsService.getInstance();
+    private SettingsService settingsService = SettingsService.getInstance();
 
-	private String fileName;
+    private String fileName;
 
-	private List list;
+    private List list;
 
-	public NewSetView() {
-		super(new Shell());
+    public NewSetView()
+    {
+        super(new Shell());
 
-	}
+    }
 
-	@Override
-	public void create() {
-		super.create();
-		setTitle("Save");
-		setMessage("Please enter a set name.");
-		setDialogHelpAvailable(false);
-		setHelpAvailable(false);
-		setTitleImage(PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_ETOOL_SAVE_EDIT));
+    @Override
+    public void create()
+    {
+        super.create();
+        setTitle("Save");
+        setMessage("Please enter a set name.");
+        setDialogHelpAvailable(false);
+        setHelpAvailable(false);
+        setTitleImage(
+                PlatformUI.getWorkbench().getSharedImages()
+                        .getImage(ISharedImages.IMG_ETOOL_SAVE_EDIT));
 
-	}
+    }
 
-	@Override
-	protected Control createDialogArea(Composite parent) {
-		GridLayout layout = new GridLayout(2, true);
-		parent.setLayout(layout);
+    @Override
+    protected Control createDialogArea(Composite parent)
+    {
+        GridLayout layout = new GridLayout(2, true);
+        parent.setLayout(layout);
 
-		createSetList(parent);
+        createSetList(parent);
 
-		return parent;
-	}
+        return parent;
+    }
 
-	private void createSetList(Composite parent) {
-		Map<String, EditorSetSettingsModel> editorSets = settingsService.getEditorSettingsSets();
-		List list = new List(parent, 1);
-		for (String setName : editorSets.keySet()) {
-			if (!setName.equals(Constants.OPEN_EDITORS_SET_NAME)) {
-				list.add(setName);
-			}
-		}
-		list.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
-	}
+    private void createSetList(Composite parent)
+    {
+        Map<String, EditorSetSettingsModel> editorSets = settingsService.getEditorSettingsSets();
+        List list = new List(parent, 1);
+        for (String setName : editorSets.keySet())
+        {
+            if (!setName.equals(Constants.OPEN_EDITORS_SET_NAME))
+            {
+                list.add(setName);
+            }
+        }
+        list.setLayoutData(new GridData(GridData.FILL, GridData.FILL, true, true));
+    }
 
-	@Override
-	protected void createButtonsForButtonBar(final Composite parent) {
-		GridData gridData = new GridData();
-		gridData.verticalAlignment = GridData.FILL;
-		gridData.horizontalSpan = 1;
-		gridData.grabExcessHorizontalSpace = false;
-		gridData.grabExcessVerticalSpace = true;
-		gridData.horizontalAlignment = SWT.CENTER;
+    @Override
+    protected void createButtonsForButtonBar(final Composite parent)
+    {
+        GridData gridData = new GridData();
+        gridData.verticalAlignment = GridData.FILL;
+        gridData.horizontalSpan = 1;
+        gridData.grabExcessHorizontalSpace = false;
+        gridData.grabExcessVerticalSpace = true;
+        gridData.horizontalAlignment = SWT.CENTER;
 
-		parent.setLayoutData(gridData);
-		createOkButton(parent, OK, "Open", true);
+        parent.setLayoutData(gridData);
+        createOkButton(parent, OK, "Open", true);
 
-		Button deleteButton = createButton(parent, DELETE, "Delete", false);
-		deleteButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent event) {
-				if (isValidInput()) {
-					settingsService.deleteWindowSet(getSelectedSetName());
-					close();
-				}
-			}
-		});
+        Button deleteButton = createButton(parent, DELETE, "Delete", false);
+        deleteButton.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent event)
+            {
+                if (isValidInput())
+                {
+                    settingsService.deleteWindowSet(getSelectedSetName());
+                    close();
+                }
+            }
+        });
 
-		Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
+        Button cancelButton = createButton(parent, CANCEL, "Cancel", false);
 
-		cancelButton.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				setReturnCode(CANCEL);
-				close();
-			}
-		});
-	}
+        cancelButton.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent e)
+            {
+                setReturnCode(CANCEL);
+                close();
+            }
+        });
+    }
 
-	protected Button createOkButton(Composite parent, int id,
-			String label,
-			boolean defaultButton) {
-		// increment the number of columns in the button bar
-		((GridLayout) parent.getLayout()).numColumns++;
-		Button button = new Button(parent, SWT.PUSH);
-		button.setText(label);
-		button.setFont(JFaceResources.getDialogFont());
-		button.setData(id );
-		button.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent event) {
-				if (isValidInput()) {
-					okPressed();
-				}
-			}
-		});
-		if (defaultButton) {
-			Shell shell = parent.getShell();
-			if (shell != null) {
-				shell.setDefaultButton(button);
-			}
-		}
-		setButtonLayoutData(button);
-		return button;
-	}
+    protected Button createOkButton(Composite parent, int id, String label, boolean defaultButton)
+    {
+        // increment the number of columns in the button bar
+        ((GridLayout) parent.getLayout()).numColumns++;
+        Button button = new Button(parent, SWT.PUSH);
+        button.setText(label);
+        button.setFont(JFaceResources.getDialogFont());
+        button.setData(id);
+        button.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent event)
+            {
+                if (isValidInput())
+                {
+                    okPressed();
+                }
+            }
+        });
+        if (defaultButton)
+        {
+            Shell shell = parent.getShell();
+            if (shell != null)
+            {
+                shell.setDefaultButton(button);
+            }
+        }
+        setButtonLayoutData(button);
+        return button;
+    }
 
-	private boolean isValidInput() {
-		//TODO add validation
-		return true;
-	}
+    private boolean isValidInput()
+    {
+        // TODO add validation
+        return true;
+    }
 
-	@Override
-	protected boolean isResizable() {
-		return true;
-	}
+    @Override
+    protected boolean isResizable()
+    {
+        return true;
+    }
 
-	private String getSelectedSetName() {
-		String[] selections = list.getSelection();
-		if (selections != null && selections.length >= 1) {
-			return selections[0];
-		} else {
-			return null;
-		}
-	}
+    private String getSelectedSetName()
+    {
+        String[] selections = list.getSelection();
+        if (selections != null && selections.length >= 1)
+        {
+            return selections[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
 
-	@Override
-	protected void okPressed() {
-		fileName = getSelectedSetName();
-		super.okPressed();
-	}
+    @Override
+    protected void okPressed()
+    {
+        fileName = getSelectedSetName();
+        super.okPressed();
+    }
 
-	public String getFileName() {
-		return fileName;
-	}
+    public String getFileName()
+    {
+        return fileName;
+    }
 
 }

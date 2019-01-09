@@ -1,8 +1,9 @@
 
 package name.shepherdson.eclipse.editors.views.editors;
 
+import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IPropertyListener;
-import org.eclipse.ui.part.EditorPart;
+import org.eclipse.ui.IWorkbenchPart;
 
 public class EditorChangeListener implements IPropertyListener
 {
@@ -19,11 +20,11 @@ public class EditorChangeListener implements IPropertyListener
     {
         // TODO Do we need to filter for the event source?
         // System.err.println("Change: property " + property + ", source " + source);
-        if (property == EditorPart.PROP_DIRTY)
+        if (property == IEditorPart.PROP_DIRTY)
         {
             editorTableView.refresh();
         }
-        else if (property == EditorPart.PROP_TITLE)
+        else if (property == IWorkbenchPart.PROP_TITLE)
         {
             editorTableView.refreshSoon();
         }
