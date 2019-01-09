@@ -2,10 +2,10 @@
 <feature
       id="name.shepherdson.eclipse.editors.feature"
       label="Editors"
-      version="0.91.1"
+      version="0.92"
       provider-name="David Shepherdson">
 
-   <description url="https://github.com/DavidShepherdson/OpenEditors">
+   <description url="https://github.com/DavidShepherdson/Eclipse-Editors">
       Editors is an Eclipse plug-in that adds a view showing all open
 editors in a vertical list.
 Based on Open Editors by David Bickley &lt;https://github.com/dbickley/OpenEditors&gt;,
